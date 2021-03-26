@@ -8,7 +8,9 @@ Please see [the wiki](https://github.com/neopragma/cobol-unit-test/wiki/) for mo
 
 This is the current version used in Bankdata, Denmark. 
 
-Atm. we are not making more pull requests to the original source, as the ones we allready have made, are not processed.
+We are no longer doing feature updates, as we are supporting COBOL-Check on the Open Mainframe Project: https://github.com/openmainframeproject/cobol-check 
+Our long term goal is to move to COBOL-Check.
+We are doing bugfixes for this fork, when we find them.
 
 ## Changes from master
 ### Features:
@@ -44,6 +46,7 @@ Atm. we are not making more pull requests to the original source, as the ones we
 * Section names of 30 chars now supported.
 * Enabled using characters beyond 72 in the testcase file.
 * Handling of * was improved
+* Section names can now contain "copy".
 
 ### Other changes:
 * Fixed a lot of warnings and performance issues with the z/OS COBOL compiler.
