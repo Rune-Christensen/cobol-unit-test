@@ -534,6 +534,10 @@
                '           SET UT-NORMAL-COMPARE TO TRUE'.
            05  SET-MOCK-STMT                PIC X(80) VALUE
                '           PERFORM UT-SET-MOCK'.
+           05  MOCK-NOT-FOUND-TEST-FAIL     PIC X(80) VALUE        
+               '           PERFORM UT-MOCK-NOT-FOUND-TEST-FAIL'.   
+           05  ELSE-STMT                    PIC X(80) VALUE        
+               '           ELSE'.                                  
            05  ENDIF-STMT                   PIC X(80) VALUE
                '           END-IF'.
            05  SET-VERIFY-EXACT-STMT        PIC X(80) VALUE
@@ -3875,17 +3879,6 @@
                TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)
            SET STATEMENT-IX UP BY 1
       
-      *    MOVE '           IF UT-MOCK-FOUND'
-      *        TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)
-      *    SET STATEMENT-IX UP BY 1
-      *
-      *    MOVE INCR-MOCK-ACCESS-COUNT-STMT
-      *        TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)
-      *    SET STATEMENT-IX UP BY 1
-      *
-      *    MOVE ENDIF-STMT TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)
-      *    SET STATEMENT-IX UP BY 1
-      
            PERFORM 5055-GEN-VERIFY-CODE
       
            PERFORM 9440-WRITE-GENERATED-STMTS
@@ -4062,6 +4055,9 @@
            PERFORM 5055-GEN-VERIFY-CODE
            SET STATEMENT-IX UP BY 1
       
+           PERFORM 5057-GEN-VERIFY-NOT-FOUND-CODE     
+           SET STATEMENT-IX UP BY 1                   
+      
            MOVE ENDIF-STMT TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)
            SET STATEMENT-IX UP BY 1
       
@@ -4145,6 +4141,9 @@
       
            PERFORM 5055-GEN-VERIFY-CODE
            SET STATEMENT-IX UP BY 1
+      
+           PERFORM 5057-GEN-VERIFY-NOT-FOUND-CODE    
+           SET STATEMENT-IX UP BY 1                  
       
            MOVE ENDIF-STMT TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)
            SET STATEMENT-IX UP BY 1
@@ -4306,6 +4305,22 @@
            END-STRING
            .
       
+       5057-GEN-VERIFY-NOT-FOUND-CODE.                                 
+      *****************************************************************
+      * Generate VERIFY code common to all types of mocks.             
+      *****************************************************************
+                                                                 
+           MOVE ELSE-STMT TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)  
+           SET STATEMENT-IX UP BY 1                                    
+                                                                 
+           MOVE INCR-TESTCASE-COUNT-STMT                               
+               TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)             
+           SET STATEMENT-IX UP BY 1                                    
+                                                                 
+           MOVE MOCK-NOT-FOUND-TEST-FAIL                               
+             TO GENERATED-SOURCE-STATEMENT(STATEMENT-IX)               
+           .                                                           
+                                                                 
        5060-DISPLAY-VERIFY-ERROR.
       *****************************************************************
       * Display an informative error message when the program cannot
