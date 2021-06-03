@@ -117,6 +117,7 @@
 
            IF UT-VERIFY-PASSED
                ADD 1 TO UT-NUMBER-PASSED
+               MOVE SPACES TO UT-DISPLAY-MESSAGE 
                DISPLAY UT-PASSED 
                        UT-TEST-CASE-NUMBER '. ' 
                       'VERIFY ' UT-EXPECTED-ACCESSES-FMT SPACE
@@ -172,6 +173,25 @@
            END-IF              
            . 
 
+       UT-MOCK-NOT-FOUND-TEST-FAIL.                                      
+           ADD 1 TO UT-NUMBER-FAILED                                     
+           MOVE SPACES TO UT-DISPLAY-MESSAGE                             
+           STRING                                                        
+               UT-FAILED                              DELIMITED BY SIZE  
+               UT-TEST-CASE-NUMBER                    DELIMITED BY SIZE  
+               '. VERIFY ACCESSES TO '                DELIMITED BY SIZE  
+               UT-MOCK-FIND-TYPE                                         
+               ' '                                                       
+               UT-MOCK-FIND-SECT-NAME                                    
+                                                      DELIMITED BY SIZE  
+               INTO UT-DISPLAY-MESSAGE                                   
+           END-STRING                                                    
+           DISPLAY UT-DISPLAY-MESSAGE                                    
+           MOVE 'THE MOCK WAS NOT FOUND' TO UT-DISPLAY-MESSAGE           
+           DISPLAY UT-DISPLAY-MESSAGE                                    
+           MOVE 4 TO UT-RETCODE                                          
+           .                                                             
+                                                                  
        UT-SET-MOCK.
       *****************************************************************
       * CREATE OR UPDATE A MOCK SPECIFICATION.
@@ -245,6 +265,7 @@
            ELSE
                ADD 1 TO UT-MOCK-COUNT
                SET UT-MOCK-IX TO UT-MOCK-COUNT
+               MOVE SPACES TO UT-MOCK-PARA-DATA(UT-MOCK-IX)
                MOVE UT-MOCK-FIND-PARA-NAME
                    TO UT-MOCK-PARA-NAME(UT-MOCK-IX)
                SET UT-MOCK-PARA(UT-MOCK-IX) TO TRUE 
@@ -258,6 +279,7 @@
            ELSE                                    
                ADD 1 TO UT-MOCK-COUNT              
                SET UT-MOCK-IX TO UT-MOCK-COUNT     
+               MOVE SPACES TO UT-MOCK-SECT-DATA(UT-MOCK-IX)
                MOVE UT-MOCK-FIND-SECT-NAME         
                  TO UT-MOCK-SECT-NAME(UT-MOCK-IX)
                SET UT-MOCK-SECT(UT-MOCK-IX) TO TRUE
