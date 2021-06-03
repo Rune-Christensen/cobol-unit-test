@@ -47,6 +47,7 @@ We are doing bugfixes for this fork, when we find them.
 * Enabled using characters beyond 72 in the testcase file.
 * Handling of * was improved
 * Section names can now contain "copy".
+* Added error when trying to verify unmocked section/paragraph.
 
 ### Other changes:
 * Fixed a lot of warnings and performance issues with the z/OS COBOL compiler.
