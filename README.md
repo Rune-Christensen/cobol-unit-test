@@ -48,6 +48,7 @@ We are doing bugfixes for this fork, when we find them.
 * Handling of * was improved
 * Section names can now contain "copy".
 * Added error when trying to verify unmocked section/paragraph.
+* Fixed so mocked calls without end-call does not assume that the next COBOL line is part of the mock.
 
 ### Other changes:
 * Fixed a lot of warnings and performance issues with the z/OS COBOL compiler.
