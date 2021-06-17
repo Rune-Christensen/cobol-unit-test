@@ -248,6 +248,7 @@
       
        01  FILLER.
            05  TEMP-STATEMENT               PIC X(80).
+           05  TEMP-STATEMENT2              PIC X(80).
            05  TEMP-VALUE                   PIC X(2048).
            05  TEMP-VALUE-OFFSET            PIC 9(04) COMP.
            05  SAVE-VALUE                   PIC X(2048).
@@ -617,6 +618,7 @@
                                                 'UNSTRING',
                                                 'WHEN',
                                                 'WRITE'.
+           88  KEYWORD-IS-END-CALL        VALUE 'END-CALL'.
       *****************************************************************
       * These definitions are used to identify CICS reserved words when
       * parsing a MOCK specification.
@@ -1866,8 +1868,21 @@
              PERFORM 3900-LOOKUP-MOCK
       
              IF MOCK-MATCHED
+                 IF NOT KEYWORD-IS-END-CALL              
+                   SUBTRACT 1 FROM TALLY-FOR-SAVED-LINES 
+                   MOVE SAVED-LINE(TALLY-FOR-SAVED-LINES)
+                     TO TEMP-STATEMENT2                  
+                 END-IF                                  
+      
                  SET COMMENT-THE-LINES TO TRUE
                  PERFORM 3960-COPY-OR-COMMENT-LINES
+      
+                 IF NOT KEYWORD-IS-END-CALL               
+                   MOVE TEMP-STATEMENT2                   
+                     TO ORIGINAL-LINE                     
+                   PERFORM 9240-UPPER-CASE-ORIGINAL-LINE  
+                   PERFORM 9460-COPY-ORIGINAL-LINE        
+                 END-IF                                   
       
                  MOVE UT-MOCK-FIND-CALL-TOKENS-STMT TO MOCK-STMT
                  PERFORM 3770-WRITE-MOCK-ACCESS-STMT
