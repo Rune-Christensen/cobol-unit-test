@@ -1885,6 +1885,7 @@
                  END-IF                                   
       
                  MOVE UT-MOCK-FIND-CALL-TOKENS-STMT TO MOCK-STMT
+                 MOVE SET-FIND-CALL-MOCK-STMT TO MOCK-SET-STMT
                  PERFORM 3770-WRITE-MOCK-ACCESS-STMT
                  PERFORM 6030-WRITE-GENERATED-STMTS
              ELSE
@@ -1990,6 +1991,7 @@
       
            PERFORM 3960-COPY-OR-COMMENT-LINES
            MOVE UT-MOCK-FIND-CICS-KEYWO-STMT TO MOCK-STMT
+           MOVE SET-FIND-CICS-MOCK-STMT TO MOCK-SET-STMT
            MOVE SPACES
              TO MOCK-LOOKUP-KEY
              (LENGTH OF MOCK-CICS-KEYWORDS-KEY(MOCK-IX) + 1:)
@@ -2064,8 +2066,10 @@
       
            IF MOCK-PARAGRAPH(MOCK-IX)
              MOVE UT-MOCK-FIND-PARA-NAME-STMT TO MOCK-STMT
+             MOVE SET-FIND-PARA-MOCK-STMT TO MOCK-SET-STMT
            ELSE
              MOVE UT-MOCK-FIND-SECT-NAME-STMT TO MOCK-STMT
+             MOVE SET-FIND-SECT-MOCK-STMT TO MOCK-SET-STMT
            END-IF
            PERFORM 3770-WRITE-MOCK-ACCESS-STMT
            PERFORM 6030-WRITE-GENERATED-STMTS
@@ -2131,6 +2135,11 @@
                MOCK-STMT                    DELIMITED BY SIZE
                INTO TEST-LINE
            WRITE TEST-LINE
+      
+           MOVE MOCK-SET-STMT
+             TO TEST-LINE  
+           WRITE TEST-LINE   
+      
            MOVE '           PERFORM UT-LOOKUP-MOCK'
                TO TEST-LINE
            WRITE TEST-LINE
