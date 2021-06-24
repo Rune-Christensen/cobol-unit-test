@@ -1875,19 +1875,19 @@
                  END-IF                                  
       
                  SET COMMENT-THE-LINES TO TRUE
-                 PERFORM 3960-COPY-OR-COMMENT-LINES
+                 PERFORM 3960-COPY-OR-COMMENT-LINES                                
+      
+                 MOVE UT-MOCK-FIND-CALL-TOKENS-STMT TO MOCK-STMT
+                 MOVE SET-FIND-CALL-MOCK-STMT TO MOCK-SET-STMT
+                 PERFORM 3770-WRITE-MOCK-ACCESS-STMT
+                 PERFORM 6030-WRITE-GENERATED-STMTS
       
                  IF NOT KEYWORD-IS-END-CALL               
                    MOVE TEMP-STATEMENT2                   
                      TO ORIGINAL-LINE                     
                    PERFORM 9240-UPPER-CASE-ORIGINAL-LINE  
                    PERFORM 9460-COPY-ORIGINAL-LINE        
-                 END-IF                                   
-      
-                 MOVE UT-MOCK-FIND-CALL-TOKENS-STMT TO MOCK-STMT
-                 MOVE SET-FIND-CALL-MOCK-STMT TO MOCK-SET-STMT
-                 PERFORM 3770-WRITE-MOCK-ACCESS-STMT
-                 PERFORM 6030-WRITE-GENERATED-STMTS
+                 END-IF   
              ELSE
                  SET COPY-THE-LINES TO TRUE
                  PERFORM 3960-COPY-OR-COMMENT-LINES
